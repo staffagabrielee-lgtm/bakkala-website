@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakkalà – Ristorante di Pesce a Bologna</title>
+    <meta name="description" content="Ristorante Bakkalà a Bologna. Pesce fresco, cucina mediterranea autentica, atmosfera elegante nel cuore della città.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Rubik+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══════════════════════════════════════ -->
+<nav id="main-nav">
+    <a href="#" class="logo"><img src="photo/logo bianco.png" alt="Bakkalà" class="logo-img"></a>
+    <ul class="nav-links">
+        <li><a href="#specialita">Menú</a></li>
+        <li><a href="i-nostri-piatti.html">I Nostri Piatti</a></li>
+        <li><a href="pesce-crudo.html">Pesce Crudo</a></li>
+        <li><a href="cena-aziendale.html">Cena Aziendale</a></li>
+        <li><a href="vini-pesce-bologna.html">Carta Vini</a></li>
+    </ul>
+    <button class="btn-prenota-nav" data-tally-open="pbP5Xy" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Prenota</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- ═══ MOBILE MENU ════════════════════════════════════ -->
+<div class="mobile-nav" id="mobile-nav">
+    <ul>
+        <li><a href="#specialita"              onclick="closeMobile()">Menú</a></li>
+        <li><a href="i-nostri-piatti.html"     onclick="closeMobile()">I Nostri Piatti</a></li>
+        <li><a href="pesce-crudo.html"         onclick="closeMobile()">Pesce Crudo</a></li>
+        <li><a href="cena-aziendale.html"      onclick="closeMobile()">Cena Aziendale</a></li>
+        <li><a href="vini-pesce-bologna.html"  onclick="closeMobile()">Carta Vini</a></li>
+    </ul>
+    <a href="#prenota" class="btn-prenota-nav" onclick="closeMobile()">Prenota</a>
+</div>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+    <picture>
+        <source media="(max-width: 768px)" srcset="photo/hero%20section%20mobile.png">
+        <img
+            src="photo/Hero%20section%20desktop.png"
+            alt="Sapore di mare – Ristorante Bakkalà Bologna"
+            class="hero-image"
+        >
+    </picture>
+    <div class="hero-buttons">
+        <a href="tel:+39" class="hero-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.06 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.16a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+            Chiama
+        </a>
+        <button class="hero-btn" data-tally-open="pbP5Xy" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Prenota
+        </button>
+        <a href="#dove-siamo" class="hero-address">Via Giuseppe Massarenti 90, 40138 Bologna</a>
+        <p class="hero-rating">★★★★★ 4,5 · 600+ recensioni · Google Maps</p>
+    </div>
+</section>
+
+
+<!-- ═══ SPECIALTIES CAROUSEL ═══════════════════════════ -->
+<section class="specialties" id="specialita">
+    <div class="carousel-track" id="carousel">
+        <div class="dish-card light">
+            <img src="photo/Spaghetto_vongole.jpg" alt="Spaghettone alle vongole">
+            <div class="dish-card-info"><p class="dish-name">Spaghetto<br>alle vongole</p></div>
+        </div>
+        <div class="dish-card dark">
+            <img src="photo/Crudo_di_mare.jpg" alt="Crudi di mare">
+            <div class="dish-card-info"><p class="dish-name">Crudi<br>di mare</p></div>
+        </div>
+        <div class="dish-card light">
+            <img src="photo/Frittura_di_pesce.jpg" alt="Frittura di gamberi e calamari">
+            <div class="dish-card-info"><p class="dish-name">Frittura<br>di pesce</p></div>
+        </div>
+        <div class="dish-card dark">
+            <img src="photo/Pesce_alla_griglia.jpg" alt="Grigliata mista di mare">
+            <div class="dish-card-info"><p class="dish-name">Grigliata<br>mista</p></div>
+        </div>
+        <div class="dish-card light">
+            <img src="photo/Baccalà_umido.jpg" alt="Bakkalà in umido con pomodorini e olive">
+            <div class="dish-card-info"><p class="dish-name">Il Bakkalà<br>in umido</p></div>
+        </div>
+        <div class="dish-card dark">
+            <img src="photo/Risotto_alla_pescatora.jpg" alt="Risotto alla pescatora">
+            <div class="dish-card-info"><p class="dish-name">Risotto<br>alla pescatora</p></div>
+        </div>
+    </div>
+    <h1 class="section-eyebrow">Ristorante di Pesce a Bologna</h1>
+    <h2 class="section-title">I nostri piatti</h2>
+    <div class="btn-download-group">
+        <a href="MENU%20APRILE%202026.pdf" download class="btn-download">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Scarica il Menù
+        </a>
+        <a href="CARTA%20VINI_%20APRILE%202026.pdf" download class="btn-download">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Scarica la Carta Vini
+        </a>
+    </div>
+</section>
+
+
+<!-- ═══ NEWSLETTER ══════════════════════════════════════ -->
+<section class="newsletter-box">
+    <div class="newsletter-inner">
+        <div class="newsletter-text">
+            <p class="section-eyebrow">Newsletter</p>
+            <h2 class="mn-title">Resta aggiornato</h2>
+            <p class="mn-desc">Ricette esclusive, curiosità sul mondo ittico e le novità del ristorante ogni settimana.</p>
+        </div>
+        <div class="newsletter-form">
+            <iframe data-tally-src="https://tally.so/embed/D4vbgZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="120" frameborder="0" marginheight="0" marginwidth="0" title="Newsletter Bakkalà"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ INFO CARD ═══════════════════════════════════════ -->
+<section class="info-section reveal" id="dove-siamo">
+    <div class="info-card">
+        <div class="info-details">
+            <p class="info-label">Vieni a trovarci</p>
+            <p class="info-address">Via Giuseppe Massarenti 90<br>40138 Bologna</p>
+            <div class="hours-list">
+                <div class="hours-row">
+                    <span class="day">Lunedì – Venerdì</span>
+                    <span>12:00 – 14:30 / 19:00 – 23:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">Sabato</span>
+                    <span>12:00 – 15:00 / 19:00 – 23:30</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">Domenica</span>
+                    <span>12:00 – 15:00</span>
+                </div>
+            </div>
+        </div>
+        <div class="info-map">
+            <iframe
+                src="https://www.google.com/maps?q=Via+Giuseppe+Massarenti+90,+40138+Bologna&output=embed"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ABOUT ════════════════════════════════════════════ -->
+<section class="about">
+    <p class="about-eyebrow reveal">Chi siamo</p>
+    <h2 class="reveal reveal-delay-1">La vera cucina<br>mediterranea<br>a Bologna</h2>
+    <p class="about-body reveal reveal-delay-2">
+        Il Ristorante Bakkalà si distingue per un'atmosfera ed un'eleganza che riportano ad ambienti più internazionali.
+        La ricerca stilistica accogliente e mediterranea rende la location <strong>unica nel suo genere</strong>,
+        a due passi dal centro di Bologna.<br><br>
+        L'attenta selezione delle materie prime scelte per realizzare i tuoi piatti, soprattutto per le crudità,
+        renderanno il tuo pranzo o la cena un evento <strong>sempre indimenticabile</strong>.
+    </p>
+</section>
+
+<!-- ═══ FEATURES ══════════════════════════════════════════ -->
+<section class="features" id="pesce-fresco">
+    <div class="features-grid">
+
+        <div class="feature-card reveal">
+            <div class="fc-content">
+                <h3>Pesce<br>Fresco</h3>
+                <p>Selezioniamo ogni giorno il pescato migliore per garantire ai nostri ospiti la massima qualità e freschezza in ogni piatto.</p>
+                <a href="#specialita" class="btn-scopri">Scopri</a>
+            </div>
+            <img src="photo/Crudo_di_mare.jpg" alt="Pesce fresco" class="fc-img">
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1">
+            <div class="fc-content">
+                <h3>Il<br>Locale</h3>
+                <p>Un'atmosfera elegante e accogliente che unisce il calore della cucina mediterranea con uno stile ricercato.</p>
+                <a href="#dove-siamo" class="btn-scopri">Scopri</a>
+            </div>
+            <img src="photo/locale.jpg" alt="Il locale Bakkalà Bologna" class="fc-img">
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<footer id="contatti">
+    <div class="footer-top">
+        <div class="footer-col">
+            <h4>Il Ristorante</h4>
+            <p class="footer-address">Via Giuseppe Massarenti 90<br>40138 Bologna</p>
+        </div>
+        <div class="footer-col">
+            <h4>Recapiti</h4>
+            <ul>
+                <li><a href="tel:+39051342854">+39 051342854</a></li>
+                <li><a href="mailto:soriafrancesco@gmail.com">soriafrancesco@gmail.com</a></li>
+            </ul>
+            <div class="footer-socials">
+                <a href="#" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Orari di Apertura</h4>
+            <div class="footer-hours">
+                <div class="footer-hours-row">
+                    <span>Lunedì</span><span>Chiuso</span>
+                </div>
+                <div class="footer-hours-row">
+                    <span>Mar – Sab</span>
+                    <span>12:00 – 14:30<br>19:30 – 22:30</span>
+                </div>
+                <div class="footer-hours-row">
+                    <span>Domenica</span><span>12:00 – 14:30</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>P.I. 03730891201 | <a href="#">Informazioni Legali</a> | <a href="#">Privacy Policy e Cookie Policy</a></span>
+        <span>Design by Gabriele Staffa</span>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
