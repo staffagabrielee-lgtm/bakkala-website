@@ -219,15 +219,15 @@ nav.scrolled {
 @media (max-width: 768px) {
     .hero-buttons {
         position: static;
-        margin: 16px 20px;
-        padding: 24px 24px;
+        margin: 0;
+        padding: 24px 20px;
         flex-direction: column;
         gap: 14px;
         align-items: stretch;
         background-image: url('photo/background_button.png');
         background-size: cover;
         background-position: center;
-        border-radius: 20px;
+        border-radius: 0;
         z-index: 10;
     }
     .hero-btn {
