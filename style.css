@@ -220,7 +220,7 @@ nav.scrolled {
 @media (max-width: 768px) {
     .hero-buttons {
         position: relative;
-        margin: 10px 0 0;
+        margin: 0;
         padding: 24px 20px;
         flex-direction: column;
         gap: 14px;
@@ -230,7 +230,6 @@ nav.scrolled {
         background-position: center;
         border-radius: 0;
         z-index: 10;
-        box-shadow: none;
     }
     .hero-btn {
         padding: 18px 28px;
