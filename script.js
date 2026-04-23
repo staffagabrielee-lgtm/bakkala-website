@@ -1,7 +1,8 @@
-// ── Nav scroll shadow ───────────────────────────────────
+// ── Nav scroll: transparent → blue ──────────────────────
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
+    const heroH = document.querySelector('.hero')?.offsetHeight || 300;
+    nav.classList.toggle('scrolled', window.scrollY > heroH - 80);
 }, { passive: true });
 
 // ── Mobile menu ─────────────────────────────────────────
