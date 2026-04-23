@@ -225,7 +225,7 @@ nav.scrolled {
         flex-direction: column;
         gap: 14px;
         align-items: stretch;
-        background-image: url('photo/background_button.png');
+        background-image: url('photo/background_button.jpg');
         background-size: cover;
         background-position: center;
         border-radius: 0;
