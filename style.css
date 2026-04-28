@@ -303,7 +303,7 @@ nav.scrolled {
 .section-title {
     font-family: 'Raleway', sans-serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 700;
+    font-weight: 500;
     color: var(--dark-blue);
     text-transform: uppercase;
     letter-spacing: 1px;
