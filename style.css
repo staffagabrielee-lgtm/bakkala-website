@@ -868,10 +868,10 @@ footer {
 /* ─── SEO PAGES ───────────────────────────── */
 .seo-hero {
     position: relative;
-    min-height: 80vh;
+    min-height: 90vh;
     display: flex;
     align-items: flex-end;
-    padding: 0 60px 72px;
+    padding: 0 60px 80px;
     color: var(--white);
     background-size: cover;
     background-position: center;
@@ -882,30 +882,31 @@ footer {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(4, 22, 52, 0.88) 0%, rgba(4, 22, 52, 0.4) 55%, rgba(4, 22, 52, 0.15) 100%);
+    background: linear-gradient(to top, rgba(4, 22, 52, 0.92) 0%, rgba(4, 22, 52, 0.55) 45%, rgba(4, 22, 52, 0.2) 100%);
     z-index: 0;
 }
 
 .seo-hero-content {
     position: relative;
     z-index: 1;
-    max-width: 680px;
+    max-width: 720px;
 }
 
 .seo-hero h1 {
     font-family: 'Raleway', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 700;
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    font-weight: 800;
     color: var(--white);
-    line-height: 1.15;
-    margin: 12px 0 16px;
+    line-height: 1.12;
+    margin: 0 0 18px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.4);
 }
 
 .seo-hero-desc {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 400;
-    color: rgba(255,255,255,0.88);
-    max-width: 540px;
+    color: rgba(255,255,255,0.92);
+    max-width: 560px;
     line-height: 1.7;
     margin-bottom: 32px;
 }
@@ -1003,7 +1004,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .seo-hero { padding: 0 24px 48px; min-height: 70vh; }
+    .seo-hero { padding: 0 24px 56px; min-height: 85vh; }
     .seo-hero-btns { flex-direction: column; }
     .seo-hero-btns .hero-btn { width: 100%; justify-content: center; }
     .seo-content { padding: 48px 24px 56px; }
