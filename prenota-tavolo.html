@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenota un Tavolo | Bakkalà Ristorante Bologna</title>
+    <meta name="description" content="Prenota il tuo tavolo da Bakkalà, ristorante di pesce a Bologna. Cucina mediterranea, pesce fresco, atmosfera elegante. Prenota online in pochi secondi.">
+    <link rel="canonical" href="https://www.bakkala.it/prenota-tavolo">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Rubik+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://tally.so/widgets/embed.js"></script>
+    <style>
+        /* ── PRENOTA HERO ── */
+        .prenota-hero {
+            background: var(--dark-blue);
+            padding: 140px 60px 64px;
+            text-align: center;
+        }
+
+        .prenota-title {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 32px;
+        }
+
+        .prenota-title span {
+            color: #5eb3ff;
+        }
+
+        /* animated arrows */
+        .arrows {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 0;
+        }
+
+        .arrow {
+            width: 28px;
+            height: 28px;
+            border-right: 3px solid rgba(255,255,255,0.5);
+            border-bottom: 3px solid rgba(255,255,255,0.5);
+            transform: rotate(45deg);
+            animation: arrow-pulse 1.4s ease-in-out infinite;
+        }
+
+        .arrow:nth-child(2) { animation-delay: 0.2s; opacity: 0.65; }
+        .arrow:nth-child(3) { animation-delay: 0.4s; opacity: 0.35; }
+
+        @keyframes arrow-pulse {
+            0%, 100% { opacity: 1; transform: rotate(45deg) translateY(0); }
+            50% { opacity: 0.3; transform: rotate(45deg) translateY(6px); }
+        }
+
+        /* ── CAROUSEL on prenota page ── */
+        .prenota-carousel {
+            background: var(--white);
+            padding: 48px 0 0;
+        }
+
+        /* ── FORM SECTION ── */
+        .prenota-form-section {
+            background: var(--white);
+            padding: 0 60px 80px;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .prenota-form-section h2 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .prenota-form-section p.form-sub {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .tally-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f5f8fc;
+            padding: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .prenota-hero { padding: 120px 24px 52px; }
+            .prenota-form-section { padding: 0 24px 64px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav id="main-nav">
+    <a href="index.html" class="logo"><img src="photo/logo bianco.png" alt="Bakkalà" class="logo-img"></a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="i-nostri-piatti.html">I Nostri Piatti</a></li>
+        <li><a href="pesce-crudo.html">Pesce Crudo</a></li>
+        <li><a href="cena-aziendale.html">Cena Aziendale</a></li>
+        <li><a href="vini-pesce-bologna.html">Carta Vini</a></li>
+    </ul>
+    <button class="btn-prenota-nav" data-tally-open="pbP5Xy" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Prenota</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-nav" id="mobile-nav">
+    <ul>
+        <li><a href="index.html" onclick="closeMobile()">Home</a></li>
+        <li><a href="i-nostri-piatti.html" onclick="closeMobile()">I Nostri Piatti</a></li>
+        <li><a href="pesce-crudo.html" onclick="closeMobile()">Pesce Crudo</a></li>
+        <li><a href="cena-aziendale.html" onclick="closeMobile()">Cena Aziendale</a></li>
+        <li><a href="vini-pesce-bologna.html" onclick="closeMobile()">Carta Vini</a></li>
+    </ul>
+    <button class="btn-prenota-nav" data-tally-open="pbP5Xy" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" onclick="closeMobile()">Prenota</button>
+</div>
+
+<!-- HERO -->
+<section class="prenota-hero">
+    <h1 class="prenota-title">Prenota ora<br>da <span>Bakkalà</span></h1>
+    <div class="arrows">
+        <div class="arrow"></div>
+        <div class="arrow"></div>
+        <div class="arrow"></div>
+    </div>
+</section>
+
+<!-- CAROUSEL -->
+<section class="prenota-carousel">
+    <div class="carousel-track" id="carousel">
+        <div class="dish-card light">
+            <img src="photo/Spaghetto_vongole.jpg" alt="Spaghettone alle vongole">
+            <div class="dish-card-info"><p class="dish-name">Spaghetto<br>alle vongole</p></div>
+        </div>
+        <div class="dish-card dark">
+            <img src="photo/Crudo_di_mare.jpg" alt="Crudi di mare">
+            <div class="dish-card-info"><p class="dish-name">Crudi<br>di mare</p></div>
+        </div>
+        <div class="dish-card light">
+            <img src="photo/Frittura_di_pesce.jpg" alt="Frittura di gamberi e calamari">
+            <div class="dish-card-info"><p class="dish-name">Frittura<br>di pesce</p></div>
+        </div>
+        <div class="dish-card dark">
+            <img src="photo/Pesce_alla_griglia.jpg" alt="Grigliata mista di mare">
+            <div class="dish-card-info"><p class="dish-name">Grigliata<br>mista</p></div>
+        </div>
+        <div class="dish-card light">
+            <img src="photo/Baccalà_umido.jpg" alt="Bakkalà in umido">
+            <div class="dish-card-info"><p class="dish-name">Il Bakkalà<br>in umido</p></div>
+        </div>
+        <div class="dish-card dark">
+            <img src="photo/Risotto_alla_pescatora.jpg" alt="Risotto alla pescatora">
+            <div class="dish-card-info"><p class="dish-name">Risotto<br>alla pescatora</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- FORM -->
+<section class="prenota-form-section">
+    <h2>Compila il modulo</h2>
+    <p class="form-sub">Ti risponderemo il prima possibile per confermare la tua prenotazione. Per richieste urgenti chiama il <a href="tel:+393287125725" style="color:var(--blue);">328 712 5725</a>.</p>
+    <div class="tally-wrapper">
+        <iframe data-tally-src="https://tally.so/embed/pbP5Xy?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="584" frameborder="0" marginheight="0" marginwidth="0" title="Prenotazione Bakkalà"></iframe>
+    </div>
+</section>
+
+<footer id="contatti">
+    <div class="footer-top">
+        <div class="footer-col">
+            <h4>Il Ristorante</h4>
+            <p class="footer-address">Via Giuseppe Massarenti 90<br>40138 Bologna</p>
+        </div>
+        <div class="footer-col">
+            <h4>Recapiti</h4>
+            <ul>
+                <li><a href="tel:+393287125725">+39 328 712 5725</a></li>
+                <li><a href="mailto:soriafrancesco@gmail.com">soriafrancesco@gmail.com</a></li>
+            </ul>
+            <div class="footer-socials">
+                <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Orari di Apertura</h4>
+            <div class="footer-hours">
+                <div class="footer-hours-row"><span>Lunedì</span><span>Chiuso</span></div>
+                <div class="footer-hours-row"><span>Mar – Sab</span><span>12:00 – 14:30<br>19:30 – 22:30</span></div>
+                <div class="footer-hours-row"><span>Domenica</span><span>12:00 – 14:30</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>P.I. 03730891201 | <a href="#">Informazioni Legali</a> | <a href="#">Privacy Policy e Cookie Policy</a></span>
+        <span>Design by Gabriele Staffa</span>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
