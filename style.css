@@ -602,43 +602,64 @@ nav.scrolled {
 
 .features-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .feature-card {
-    background: var(--dark-blue);
+    position: relative;
     border-radius: 24px;
-    padding: 40px 40px 40px 44px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    height: 420px;
+    transition: transform 0.35s ease;
+    cursor: pointer;
 }
 
-.feature-card:hover { transform: translateY(-4px); }
+.feature-card:hover { transform: translateY(-6px); }
 
-.fc-content { flex: 1; }
+.fc-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.feature-card:hover .fc-bg { transform: scale(1.05); }
+
+.fc-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(4, 22, 52, 0.93) 0%, rgba(4, 22, 52, 0.35) 55%, transparent 100%);
+}
+
+.fc-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 32px;
+}
 
 .feature-card h3 {
-    font-family: 'Rubik One', sans-serif;
-    font-size: 1.85rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
     color: var(--white);
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     line-height: 1.15;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .feature-card p {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.82);
     line-height: 1.65;
-    margin-bottom: 28px;
-    max-width: 280px;
+    margin-bottom: 20px;
 }
 
 .btn-scopri {
@@ -646,7 +667,7 @@ nav.scrolled {
     background: var(--white);
     color: var(--dark-blue);
     border: none;
-    padding: 12px 32px;
+    padding: 10px 28px;
     border-radius: 10px;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
@@ -658,25 +679,6 @@ nav.scrolled {
 }
 
 .btn-scopri:hover { background: #e4eef9; }
-
-.fc-img {
-    width: 155px;
-    height: 155px;
-    object-fit: cover;
-    border-radius: 18px;
-    flex-shrink: 0;
-}
-
-.fc-icon {
-    width: 155px;
-    height: 155px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 18px;
-}
 
 /* ─── FOOTER ──────────────────────────────── */
 footer {
@@ -815,6 +817,7 @@ footer {
     .about { padding: 64px 24px; }
     .features { padding: 56px 24px; }
     .features-grid { grid-template-columns: 1fr; }
+    .feature-card { height: 340px; }
 
     footer { padding: 56px 24px 36px; }
     .footer-top { grid-template-columns: 1fr; gap: 36px; }
