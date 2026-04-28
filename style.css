@@ -577,6 +577,30 @@ nav.scrolled {
     padding: 80px 60px 72px;
 }
 
+.about-inner {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-img {
+    width: 420px;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 20px;
+    flex-shrink: 0;
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .about-img { display: none; }
+    .about-inner { display: block; }
+}
+
 .about-eyebrow {
     font-size: 0.72rem;
     letter-spacing: 3.5px;
