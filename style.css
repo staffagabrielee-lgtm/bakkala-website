@@ -571,7 +571,8 @@ nav.scrolled {
 }
 
 .about h2 {
-    font-family: 'Rubik One', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
     font-size: clamp(2rem, 4.5vw, 3.4rem);
     color: var(--dark-blue);
     text-transform: uppercase;
