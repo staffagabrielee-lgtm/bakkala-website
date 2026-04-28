@@ -290,6 +290,7 @@ nav.scrolled {
 .specialties {
     background: var(--white);
     padding: 72px 0 64px;
+    overflow: hidden;
 }
 
 .btn-download-group {
@@ -341,16 +342,17 @@ nav.scrolled {
 .carousel-track {
     display: flex;
     gap: 16px;
-    overflow-x: auto;
-    padding: 4px 60px 28px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-snap-type: x mandatory;
-    cursor: grab;
+    width: max-content;
+    padding: 4px 0 28px;
+    animation: marquee 28s linear infinite;
 }
 
-.carousel-track:active { cursor: grabbing; }
-.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track:hover { animation-play-state: paused; }
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
 
 .dish-card {
     flex: 0 0 170px;

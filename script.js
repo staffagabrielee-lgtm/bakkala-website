@@ -31,23 +31,3 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ── Carousel drag-to-scroll ─────────────────────────────
-const track = document.getElementById('carousel');
-let isDragging = false, startX, scrollLeft;
-
-track.addEventListener('mousedown', e => {
-    isDragging = true;
-    startX = e.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft;
-    track.style.cursor = 'grabbing';
-});
-
-track.addEventListener('mouseleave', () => { isDragging = false; track.style.cursor = 'grab'; });
-track.addEventListener('mouseup',    () => { isDragging = false; track.style.cursor = 'grab'; });
-
-track.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - track.offsetLeft;
-    track.scrollLeft = scrollLeft - (x - startX) * 1.2;
-});
