@@ -309,7 +309,18 @@ nav.scrolled {
     letter-spacing: 1px;
     line-height: 1.15;
     padding: 0 60px;
-    margin-bottom: 40px;
+    margin-bottom: 16px;
+}
+
+.section-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    font-weight: 400;
+    color: #444;
+    padding: 0 60px;
+    margin-bottom: 32px;
+    max-width: 700px;
+    line-height: 1.6;
 }
 
 .carousel-track {
