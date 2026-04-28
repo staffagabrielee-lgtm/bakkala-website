@@ -845,8 +845,22 @@ footer {
     .section-eyebrow,
     .section-title,
     .section-subtitle,
-    .carousel-track,
     .btn-download-group { padding-left: 24px; padding-right: 24px; }
+
+    .carousel-track {
+        animation: none;
+        overflow-x: auto;
+        width: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-snap-type: x mandatory;
+        cursor: grab;
+    }
+
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-track [aria-hidden="true"] { display: none; }
 
     .info-section { padding: 0 24px 56px; }
     .info-card {
