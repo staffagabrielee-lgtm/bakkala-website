@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }),
                 fetch('https://script.google.com/macros/s/AKfycbxPxpy7rGczhxVTvaNZDYLfwc94q5X_AbXuZmmIVmo9YwKNgQU7hXjIrBIVbQ1Zb_MGOQ/exec', {
                     method: 'POST',
+                    mode: 'no-cors',
                     body: JSON.stringify(payload)
                 })
             ]);
