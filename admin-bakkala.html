@@ -229,24 +229,26 @@ async function loadDates() {
         const res  = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
             headers: { 'X-Master-Key': API_KEY }
         });
+        if (!res.ok) { const t = await res.text(); throw new Error(res.status + ' ' + t.slice(0,80)); }
         const data = await res.json();
         blocked = data.record.blocked || [];
         renderList();
         setStatus('', '');
-    } catch(e) { setStatus('Errore di connessione.', 'err'); }
+    } catch(e) { setStatus('Errore caricamento: ' + e.message, 'err'); }
 }
 
 async function saveDates() {
     setStatus('Salvataggio…', '');
     try {
-        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
             body: JSON.stringify({ blocked })
         });
+        if (!res.ok) { const t = await res.text(); throw new Error(res.status + ' ' + t.slice(0,120)); }
         setStatus('Salvato!', 'ok');
-        setTimeout(() => setStatus('', ''), 2000);
-    } catch(e) { setStatus('Errore nel salvataggio.', 'err'); }
+        setTimeout(() => setStatus('', ''), 2500);
+    } catch(e) { setStatus('Errore: ' + e.message, 'err'); }
 }
 
 function addDate() {
