@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="bm-sub">Compila il modulo. Per gruppi numerosi chiama il <a href="tel:+390513428554">051 342854</a>.</p>
 
         <div id="bm-success" class="bm-success" style="display:none">
-            <p>✓ Prenotazione inviata! Ti risponderemo presto.</p>
+            <p>Prenotazione confermata. La aspettiamo da Bakkalà!</p>
         </div>
 
         <form id="bm-form" class="bm-form">
@@ -89,10 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </select>
                     <p class="bm-notice" id="bm-notice-orario" style="display:none"></p>
                     <p class="bm-hint" id="bm-hint-domenica" style="display:none">La domenica siamo aperti solo a pranzo.</p>
-                </div>
-                <div class="bm-field bm-full">
-                    <label for="bm-note">Note (allergie, occasioni speciali…)</label>
-                    <textarea id="bm-note" name="Note" rows="2" placeholder="Facoltativo"></textarea>
                 </div>
             </div>
             <p class="bm-error" id="bm-error-submit" style="display:none"></p>
