@@ -167,6 +167,17 @@
             margin-top: 6px;
         }
 
+        .bf-notice {
+            font-size: 0.85rem;
+            color: #b05800;
+            background: #fff4e5;
+            border-left: 3px solid #e08c00;
+            padding: 8px 12px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
         .bf-submit {
             display: block;
             width: 100%;
@@ -300,6 +311,7 @@
                     <option value="" disabled selected>Scegli prima una data</option>
                 </select>
                 <p class="bf-hint" id="bf-hint-domenica" style="display:none">La domenica siamo aperti solo a pranzo.</p>
+                <p class="bf-notice" id="bf-notice-orario" style="display:none"></p>
             </div>
 
             <div class="bf-field bf-full">
@@ -319,9 +331,10 @@
     const API_KEY = '$2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK';
 
     const dateInput = document.getElementById('bf-data');
-    const orarioSel = document.getElementById('bf-orario');
-    const errData   = document.getElementById('bf-error-data');
-    const hintDom   = document.getElementById('bf-hint-domenica');
+    const orarioSel   = document.getElementById('bf-orario');
+    const errData     = document.getElementById('bf-error-data');
+    const hintDom     = document.getElementById('bf-hint-domenica');
+    const noticeOrario = document.getElementById('bf-notice-orario');
 
     let blockedDates = []; // array di {date, service}
 
@@ -367,8 +380,9 @@
         const blockLunch = blocks.some(b => b.service === 'lunch');
         const blockDinner = blocks.some(b => b.service === 'dinner');
 
-        errData.style.display = 'none';
-        hintDom.style.display = day === 0 ? 'block' : 'none';
+        errData.style.display   = 'none';
+        noticeOrario.style.display = 'none';
+        hintDom.style.display   = day === 0 ? 'block' : 'none';
 
         if (day === 1) {
             errData.textContent = 'Il lunedì siamo chiusi. Scegli un altro giorno.';
@@ -377,11 +391,11 @@
             errData.textContent = 'Il locale è chiuso in questa data. Scegli un altro giorno.';
             errData.style.display = 'block';
         } else if (blockLunch) {
-            errData.textContent = 'Il pranzo non è disponibile in questa data.';
-            errData.style.display = 'block';
+            noticeOrario.textContent   = '⚠ Prenotazioni esaurite a pranzo — disponibile solo la cena.';
+            noticeOrario.style.display = 'block';
         } else if (blockDinner) {
-            errData.textContent = 'La cena non è disponibile in questa data.';
-            errData.style.display = 'block';
+            noticeOrario.textContent   = '⚠ Prenotazioni esaurite a cena — disponibile solo il pranzo.';
+            noticeOrario.style.display = 'block';
         }
 
         orarioSel.innerHTML = '';
