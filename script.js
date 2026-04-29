@@ -177,13 +177,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = new FormData(this);
         data.append('_subject', 'Nuova Prenotazione – Bakkalà');
 
+        const payload = {
+            nome:    this.querySelector('[name="Nome"]').value,
+            email:   this.querySelector('[name="Email"]').value,
+            persone: this.querySelector('[name="Numero persone"]').value,
+            data:    this.querySelector('[name="Data"]').value,
+            orario:  this.querySelector('[name="Orario"]').value,
+        };
+
         try {
-            const res = await fetch('https://formsubmit.co/ajax/gabrielestaffa2003@gmail.com', {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: data
-            });
-            if (res.ok) {
+            const [emailRes] = await Promise.all([
+                fetch('https://formsubmit.co/ajax/gabrielestaffa2003@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: data
+                }),
+                fetch('https://script.google.com/macros/s/AKfycbxPxpy7rGczhxVTvaNZDYLfwc94q5X_AbXuZmmIVmo9YwKNgQU7hXjIrBIVbQ1Zb_MGOQ/exec', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                })
+            ]);
+            if (emailRes.ok) {
                 document.getElementById('bm-form').style.display = 'none';
                 document.getElementById('bm-success').style.display = 'block';
             } else {
