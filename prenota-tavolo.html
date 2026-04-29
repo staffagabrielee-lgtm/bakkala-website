@@ -315,12 +315,23 @@
 
 <script>
 (function () {
-    const dateInput  = document.getElementById('bf-data');
-    const orarioSel  = document.getElementById('bf-orario');
-    const errData    = document.getElementById('bf-error-data');
-    const hintDom    = document.getElementById('bf-hint-domenica');
+    const BIN_ID  = '69f1daaa856a682189873789';
+    const API_KEY = '$2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK';
 
-    // min = tomorrow
+    const dateInput = document.getElementById('bf-data');
+    const orarioSel = document.getElementById('bf-orario');
+    const errData   = document.getElementById('bf-error-data');
+    const hintDom   = document.getElementById('bf-hint-domenica');
+
+    let blockedDates = [];
+
+    // Carica date bloccate da JSONBin
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': API_KEY }
+    }).then(r => r.json()).then(data => {
+        blockedDates = data.record.blocked || [];
+    }).catch(() => {});
+
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     dateInput.min = tomorrow.toISOString().split('T')[0];
@@ -339,27 +350,36 @@
     }
 
     function getSlots(day) {
-        // 0=Dom, 1=Lun, 2=Mar, 3=Mer, 4=Gio, 5=Ven, 6=Sab
         if (day === 1) return [];
-        if (day === 0) return slots(12,  0, 14, 45);
-        if (day === 2 || day === 3)
-            return [...slots(12, 30, 14, 45), ...slots(19, 30, 22, 45)];
+        if (day === 0) return slots(12, 0, 14, 45);
+        if (day === 2 || day === 3) return [...slots(12, 30, 14, 45), ...slots(19, 30, 22, 45)];
         return [...slots(12, 0, 14, 30), ...slots(19, 30, 22, 45)];
     }
 
     dateInput.addEventListener('change', function () {
-        const [y, mo, d] = this.value.split('-').map(Number);
+        const val = this.value;
+        const [y, mo, d] = val.split('-').map(Number);
         const date = new Date(y, mo - 1, d);
         const day  = date.getDay();
 
-        errData.style.display  = day === 1 ? 'block' : 'none';
-        hintDom.style.display  = day === 0 ? 'block' : 'none';
+        const isBlocked = blockedDates.includes(val);
+        const isClosed  = day === 1 || isBlocked;
+
+        errData.style.display = day === 1   ? 'block' : 'none';
+        hintDom.style.display = day === 0   ? 'block' : 'none';
+
+        if (isBlocked && day !== 1) {
+            errData.textContent  = 'Il locale è chiuso in questa data. Scegli un altro giorno.';
+            errData.style.display = 'block';
+        } else if (day === 1) {
+            errData.textContent  = 'Il lunedì siamo chiusi. Scegli un altro giorno.';
+        }
 
         orarioSel.innerHTML = '';
 
-        if (day === 1) {
+        if (isClosed) {
             orarioSel.disabled = true;
-            orarioSel.innerHTML = '<option value="" disabled selected>Chiuso il lunedì</option>';
+            orarioSel.innerHTML = '<option value="" disabled selected>Data non disponibile</option>';
             return;
         }
 

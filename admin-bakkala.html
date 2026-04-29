@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – Bakkalà</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Raleway', sans-serif; background: #f0f4fa; min-height: 100vh; }
+
+        /* ── LOGIN ── */
+        #login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .login-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .login-box h1 {
+            font-size: 1.5rem;
+            color: #041634;
+            margin-bottom: 8px;
+        }
+        .login-box p { font-size: 0.9rem; color: #888; margin-bottom: 28px; }
+        .login-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #dde4f0;
+            border-radius: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            color: #041634;
+            margin-bottom: 16px;
+            outline: none;
+        }
+        .login-box input:focus { border-color: #106ccd; }
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: #041634;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .login-box button:hover { background: #106ccd; }
+        .login-error { color: #c0392b; font-size: 0.85rem; margin-top: 10px; display: none; }
+
+        /* ── ADMIN PANEL ── */
+        #admin-panel { display: none; max-width: 700px; margin: 0 auto; padding: 40px 24px 80px; }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+        .admin-header h1 { font-size: 1.4rem; color: #041634; }
+        .admin-header button {
+            padding: 8px 20px;
+            border: 2px solid #dde4f0;
+            border-radius: 8px;
+            background: #fff;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .admin-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+        .admin-card h2 {
+            font-size: 1rem;
+            color: #041634;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 20px;
+        }
+
+        .add-date-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        .add-date-row input[type="date"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #dde4f0;
+            border-radius: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.97rem;
+            color: #041634;
+            outline: none;
+        }
+        .add-date-row input:focus { border-color: #106ccd; }
+        .btn-add {
+            padding: 12px 24px;
+            background: #041634;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-add:hover { background: #106ccd; }
+
+        .date-list { margin-top: 24px; }
+        .date-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #f5f8fc;
+            margin-bottom: 8px;
+        }
+        .date-item span { font-weight: 600; color: #041634; }
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #c0392b;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        .btn-remove:hover { background: #fdecea; }
+
+        .empty-msg { color: #aaa; font-size: 0.9rem; text-align: center; padding: 16px 0; }
+
+        .status-bar {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 16px;
+            min-height: 20px;
+        }
+        .status-bar.ok { color: #27ae60; }
+        .status-bar.err { color: #c0392b; }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+    <div class="login-box">
+        <h1>Bakkalà Admin</h1>
+        <p>Accedi per gestire le date di chiusura</p>
+        <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button onclick="doLogin()">Accedi</button>
+        <p class="login-error" id="login-error">Password errata. Riprova.</p>
+    </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+    <div class="admin-header">
+        <h1>Gestione Date di Chiusura</h1>
+        <button onclick="doLogout()">Esci</button>
+    </div>
+
+    <div class="admin-card">
+        <h2>Blocca una data</h2>
+        <div class="add-date-row">
+            <input type="date" id="new-date" min="">
+            <button class="btn-add" onclick="addDate()">+ Blocca data</button>
+        </div>
+        <p id="add-error" style="color:#c0392b;font-size:0.82rem;margin-top:8px;display:none;"></p>
+    </div>
+
+    <div class="admin-card">
+        <h2>Date bloccate</h2>
+        <div class="date-list" id="date-list"></div>
+        <p class="status-bar" id="status-bar"></p>
+    </div>
+</div>
+
+<script>
+const BIN_ID  = '69f1daaa856a682189873789';
+const API_KEY = '$2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK';
+const PASSWORD = 'bakkala2026';
+
+let blocked = [];
+
+function doLogin() {
+    const pw = document.getElementById('pw-input').value;
+    if (pw === PASSWORD) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-panel').style.display  = 'block';
+        const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('new-date').min = tomorrow.toISOString().split('T')[0];
+        loadDates();
+    } else {
+        document.getElementById('login-error').style.display = 'block';
+    }
+}
+
+function doLogout() {
+    document.getElementById('admin-panel').style.display  = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('pw-input').value = '';
+}
+
+async function loadDates() {
+    setStatus('Caricamento…', '');
+    try {
+        const res  = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            headers: { 'X-Master-Key': API_KEY }
+        });
+        const data = await res.json();
+        blocked = data.record.blocked || [];
+        renderList();
+        setStatus('', '');
+    } catch(e) { setStatus('Errore di connessione.', 'err'); }
+}
+
+async function saveDates() {
+    setStatus('Salvataggio…', '');
+    try {
+        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
+            body: JSON.stringify({ blocked })
+        });
+        setStatus('Salvato!', 'ok');
+        setTimeout(() => setStatus('', ''), 2000);
+    } catch(e) { setStatus('Errore nel salvataggio.', 'err'); }
+}
+
+function addDate() {
+    const val = document.getElementById('new-date').value;
+    const err = document.getElementById('add-error');
+    if (!val) { err.textContent = 'Seleziona una data.'; err.style.display = 'block'; return; }
+
+    const [y, m, d] = val.split('-').map(Number);
+    const day = new Date(y, m - 1, d).getDay();
+    if (day === 1) { err.textContent = 'Il lunedì è già chiuso di default.'; err.style.display = 'block'; return; }
+
+    if (blocked.includes(val)) { err.textContent = 'Data già bloccata.'; err.style.display = 'block'; return; }
+
+    err.style.display = 'none';
+    blocked.push(val);
+    blocked.sort();
+    renderList();
+    saveDates();
+    document.getElementById('new-date').value = '';
+}
+
+function removeDate(date) {
+    blocked = blocked.filter(d => d !== date);
+    renderList();
+    saveDates();
+}
+
+function renderList() {
+    const list = document.getElementById('date-list');
+    if (blocked.length === 0) {
+        list.innerHTML = '<p class="empty-msg">Nessuna data bloccata.</p>';
+        return;
+    }
+    list.innerHTML = blocked.map(d => {
+        const [y, mo, day] = d.split('-').map(Number);
+        const label = new Date(y, mo - 1, day).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        return `<div class="date-item"><span>${label}</span><button class="btn-remove" onclick="removeDate('${d}')">✕</button></div>`;
+    }).join('');
+}
+
+function setStatus(msg, cls) {
+    const el = document.getElementById('status-bar');
+    el.textContent = msg;
+    el.className = 'status-bar ' + cls;
+}
+</script>
+</body>
+</html>
