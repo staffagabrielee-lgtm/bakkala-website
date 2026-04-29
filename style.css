@@ -1055,3 +1055,135 @@ footer {
 @media (max-width: 540px) {
     .dish-card { flex: 0 0 148px; }
 }
+
+/* ─── BOOKING MODAL ───────────────────────── */
+.bm-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 22, 52, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+.bm-overlay.open {
+    display: flex;
+}
+.bm-box {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 40px 36px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(4, 22, 52, 0.25);
+}
+.bm-close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #888;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    line-height: 1;
+}
+.bm-close:hover { background: #f0f4fa; color: #041634; }
+.bm-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #041634;
+    margin-bottom: 6px;
+}
+.bm-sub {
+    font-size: 0.92rem;
+    color: #666;
+    margin-bottom: 28px;
+}
+.bm-sub a { color: #106ccd; }
+.bm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.bm-field { display: flex; flex-direction: column; gap: 6px; }
+.bm-field.bm-full { grid-column: 1 / -1; }
+.bm-field label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #041634;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.bm-field input,
+.bm-field select,
+.bm-field textarea {
+    padding: 12px 14px;
+    border: 2px solid #dde4f0;
+    border-radius: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.97rem;
+    color: #041634;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.bm-field input:focus,
+.bm-field select:focus,
+.bm-field textarea:focus { border-color: #106ccd; }
+.bm-field select:disabled { color: #aaa; background: #f8fafc; }
+.bm-field textarea { resize: vertical; min-height: 72px; }
+.bm-error {
+    font-size: 0.82rem;
+    color: #c0392b;
+    margin-top: 2px;
+}
+.bm-notice {
+    font-size: 0.84rem;
+    color: #d97706;
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b;
+    padding: 8px 12px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 4px;
+}
+.bm-hint {
+    font-size: 0.82rem;
+    color: #106ccd;
+    margin-top: 2px;
+}
+.bm-submit {
+    margin-top: 24px;
+    width: 100%;
+    padding: 15px;
+    background: #041634;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.bm-submit:hover:not(:disabled) { background: #106ccd; }
+.bm-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.bm-success {
+    text-align: center;
+    padding: 24px 0;
+    color: #27ae60;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+@media (max-width: 560px) {
+    .bm-box { padding: 32px 20px 28px; border-radius: 20px; }
+    .bm-grid { grid-template-columns: 1fr; }
+    .bm-field.bm-full { grid-column: 1; }
+}
