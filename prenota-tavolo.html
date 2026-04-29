@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Rubik+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script async src="https://tally.so/widgets/embed.js"></script>
     <style>
         /* ── PRENOTA HERO ── */
         .prenota-hero {
@@ -99,6 +98,100 @@
             .prenota-hero { padding: 120px 24px 52px; }
             .prenota-form-section { padding: 0 24px 64px; }
         }
+
+        /* ── BOOKING FORM ── */
+        .booking-form {
+            background: #f5f8fc;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .bf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .bf-full { grid-column: 1 / -1; }
+
+        .bf-field label {
+            display: block;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .bf-field input,
+        .bf-field select,
+        .bf-field textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #dde4f0;
+            border-radius: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.97rem;
+            color: var(--dark-blue);
+            background: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+            appearance: auto;
+        }
+
+        .bf-field input:focus,
+        .bf-field select:focus,
+        .bf-field textarea:focus {
+            border-color: var(--blue);
+        }
+
+        .bf-field select:disabled { color: #aaa; }
+
+        .bf-field textarea { resize: vertical; }
+
+        .bf-error {
+            display: none;
+            font-size: 0.82rem;
+            color: #c0392b;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .bf-hint {
+            font-size: 0.82rem;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        .bf-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: var(--dark-blue);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .bf-submit:hover {
+            background: var(--blue);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .bf-grid { grid-template-columns: 1fr; }
+            .booking-form { padding: 24px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -163,10 +256,129 @@
 <section class="prenota-form-section">
     <h2>Compila il modulo</h2>
     <p class="form-sub">Compila il modulo per confermare la tua prenotazione. Se siete un gruppo numeroso chiamate il <a href="tel:+390513428554" style="color:var(--blue);">051 342854</a>.</p>
-    <div class="tally-wrapper">
-        <iframe data-tally-src="https://tally.so/embed/pbP5Xy?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="584" frameborder="0" marginheight="0" marginwidth="0" title="Prenotazione Bakkalà"></iframe>
-    </div>
+
+    <form class="booking-form" action="https://formsubmit.co/soriafrancesco@gmail.com" method="POST" id="bookingForm">
+        <input type="hidden" name="_subject" value="Nuova Prenotazione – Bakkalà">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="bf-grid">
+
+            <div class="bf-field">
+                <label for="bf-nome">Nome e Cognome</label>
+                <input type="text" id="bf-nome" name="Nome" placeholder="Mario Rossi" required>
+            </div>
+
+            <div class="bf-field">
+                <label for="bf-email">Email</label>
+                <input type="email" id="bf-email" name="Email" placeholder="mario@esempio.it" required>
+            </div>
+
+            <div class="bf-field">
+                <label for="bf-persone">Quanti siete?</label>
+                <select id="bf-persone" name="Numero persone" required>
+                    <option value="" disabled selected>Seleziona</option>
+                    <option value="1">1 persona</option>
+                    <option value="2">2 persone</option>
+                    <option value="3">3 persone</option>
+                    <option value="4">4 persone</option>
+                    <option value="5">5 persone</option>
+                    <option value="6">6 persone</option>
+                </select>
+            </div>
+
+            <div class="bf-field">
+                <label for="bf-data">Data</label>
+                <input type="date" id="bf-data" name="Data" required>
+                <p class="bf-error" id="bf-error-data">Il lunedì siamo chiusi. Scegli un altro giorno.</p>
+            </div>
+
+            <div class="bf-field bf-full">
+                <label for="bf-orario">Fascia oraria</label>
+                <select id="bf-orario" name="Orario" required disabled>
+                    <option value="" disabled selected>Scegli prima una data</option>
+                </select>
+                <p class="bf-hint" id="bf-hint-domenica" style="display:none">La domenica siamo aperti solo a pranzo.</p>
+            </div>
+
+            <div class="bf-field bf-full">
+                <label for="bf-note">Note (allergie, occasioni speciali…)</label>
+                <textarea id="bf-note" name="Note" rows="3" placeholder="Facoltativo"></textarea>
+            </div>
+
+        </div>
+
+        <button type="submit" class="bf-submit">Invia Prenotazione</button>
+    </form>
 </section>
+
+<script>
+(function () {
+    const dateInput  = document.getElementById('bf-data');
+    const orarioSel  = document.getElementById('bf-orario');
+    const errData    = document.getElementById('bf-error-data');
+    const hintDom    = document.getElementById('bf-hint-domenica');
+
+    // min = tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.min = tomorrow.toISOString().split('T')[0];
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function slots(startH, startM, endH, endM) {
+        const result = [];
+        let h = startH, m = startM;
+        while (h * 60 + m + 30 <= endH * 60 + endM) {
+            result.push(pad(h) + ':' + pad(m));
+            m += 30;
+            if (m >= 60) { h++; m -= 60; }
+        }
+        return result;
+    }
+
+    function getSlots(day) {
+        // 0=Dom, 1=Lun, 2=Mar, 3=Mer, 4=Gio, 5=Ven, 6=Sab
+        if (day === 1) return [];
+        if (day === 0) return slots(12,  0, 14, 45);
+        if (day === 2 || day === 3)
+            return [...slots(12, 30, 14, 45), ...slots(19, 30, 22, 45)];
+        return [...slots(12, 0, 14, 30), ...slots(19, 30, 22, 45)];
+    }
+
+    dateInput.addEventListener('change', function () {
+        const [y, mo, d] = this.value.split('-').map(Number);
+        const date = new Date(y, mo - 1, d);
+        const day  = date.getDay();
+
+        errData.style.display  = day === 1 ? 'block' : 'none';
+        hintDom.style.display  = day === 0 ? 'block' : 'none';
+
+        orarioSel.innerHTML = '';
+
+        if (day === 1) {
+            orarioSel.disabled = true;
+            orarioSel.innerHTML = '<option value="" disabled selected>Chiuso il lunedì</option>';
+            return;
+        }
+
+        const list = getSlots(day);
+        orarioSel.disabled = false;
+
+        const placeholder = document.createElement('option');
+        placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
+        placeholder.textContent = 'Seleziona orario';
+        orarioSel.appendChild(placeholder);
+
+        list.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t; opt.textContent = t;
+            orarioSel.appendChild(opt);
+        });
+    });
+})();
+</script>
 
 <footer id="contatti">
     <div class="footer-top">
