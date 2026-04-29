@@ -101,7 +101,8 @@
             gap: 12px;
             align-items: flex-end;
         }
-        .add-date-row input[type="date"] {
+        .add-date-row input[type="date"],
+        .add-date-row select {
             flex: 1;
             padding: 12px 16px;
             border: 2px solid #dde4f0;
@@ -110,8 +111,10 @@
             font-size: 0.97rem;
             color: #041634;
             outline: none;
+            background: #fff;
         }
-        .add-date-row input:focus { border-color: #106ccd; }
+        .add-date-row input:focus,
+        .add-date-row select:focus { border-color: #106ccd; }
         .btn-add {
             padding: 12px 24px;
             background: #041634;
@@ -185,7 +188,12 @@
         <h2>Blocca una data</h2>
         <div class="add-date-row">
             <input type="date" id="new-date" min="">
-            <button class="btn-add" onclick="addDate()">+ Blocca data</button>
+            <select id="new-service">
+                <option value="all">Tutto il giorno</option>
+                <option value="lunch">Solo pranzo</option>
+                <option value="dinner">Solo cena</option>
+            </select>
+            <button class="btn-add" onclick="addDate()">+ Blocca</button>
         </div>
         <p id="add-error" style="color:#c0392b;font-size:0.82rem;margin-top:8px;display:none;"></p>
     </div>
@@ -251,27 +259,32 @@ async function saveDates() {
     } catch(e) { setStatus('Errore: ' + e.message, 'err'); }
 }
 
+const SERVICE_LABEL = { all: 'Tutto il giorno', lunch: 'Solo pranzo', dinner: 'Solo cena' };
+
 function addDate() {
     const val = document.getElementById('new-date').value;
+    const svc = document.getElementById('new-service').value;
     const err = document.getElementById('add-error');
     if (!val) { err.textContent = 'Seleziona una data.'; err.style.display = 'block'; return; }
 
     const [y, m, d] = val.split('-').map(Number);
     const day = new Date(y, m - 1, d).getDay();
     if (day === 1) { err.textContent = 'Il lunedì è già chiuso di default.'; err.style.display = 'block'; return; }
+    if (day === 0 && svc === 'dinner') { err.textContent = 'La domenica è già chiusa a cena di default.'; err.style.display = 'block'; return; }
 
-    if (blocked.includes(val)) { err.textContent = 'Data già bloccata.'; err.style.display = 'block'; return; }
+    const duplicate = blocked.find(b => b.date === val && b.service === svc);
+    if (duplicate) { err.textContent = 'Questa data/servizio è già bloccata.'; err.style.display = 'block'; return; }
 
     err.style.display = 'none';
-    blocked.push(val);
-    blocked.sort();
+    blocked.push({ date: val, service: svc });
+    blocked.sort((a, b) => a.date.localeCompare(b.date));
     renderList();
     saveDates();
     document.getElementById('new-date').value = '';
 }
 
-function removeDate(date) {
-    blocked = blocked.filter(d => d !== date);
+function removeDate(index) {
+    blocked.splice(index, 1);
     renderList();
     saveDates();
 }
@@ -282,10 +295,14 @@ function renderList() {
         list.innerHTML = '<p class="empty-msg">Nessuna data bloccata.</p>';
         return;
     }
-    list.innerHTML = blocked.map(d => {
-        const [y, mo, day] = d.split('-').map(Number);
-        const label = new Date(y, mo - 1, day).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-        return `<div class="date-item"><span>${label}</span><button class="btn-remove" onclick="removeDate('${d}')">✕</button></div>`;
+    list.innerHTML = blocked.map((b, i) => {
+        const [y, mo, day] = b.date.split('-').map(Number);
+        const dateLabel = new Date(y, mo - 1, day).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        const svcLabel  = SERVICE_LABEL[b.service] || b.service;
+        return `<div class="date-item">
+            <span>${dateLabel} — <em>${svcLabel}</em></span>
+            <button class="btn-remove" onclick="removeDate(${i})">✕</button>
+        </div>`;
     }).join('');
 }
 
