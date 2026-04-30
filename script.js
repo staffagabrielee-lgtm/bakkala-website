@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const [emailRes] = await Promise.all([
-                fetch('https://formsubmit.co/ajax/gabrielestaffa2003@gmail.com', {
+                fetch('https://formsubmit.co/ajax/soriafrancesco@gmail.com', {
                     method: 'POST',
                     headers: { 'Accept': 'application/json' },
                     body: data
