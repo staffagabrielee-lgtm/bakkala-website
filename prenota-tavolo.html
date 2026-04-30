@@ -217,7 +217,7 @@
         <li><a href="vini-pesce-bologna.html">Carta Vini</a></li>
         <li><a href="prenota-tavolo.html">Prenota Tavolo</a></li>
     </ul>
-    <button class="btn-prenota-nav" data-tally-open="pbP5Xy" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Prenota</button>
+    <button class="btn-prenota-nav" onclick="openBookingModal()">Prenota</button>
     <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
     </button>
@@ -231,7 +231,7 @@
         <li><a href="cena-aziendale.html" onclick="closeMobile()">Cena Aziendale</a></li>
         <li><a href="vini-pesce-bologna.html" onclick="closeMobile()">Carta Vini</a></li>
     </ul>
-    <button class="btn-prenota-nav" data-tally-open="pbP5Xy" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" onclick="closeMobile()">Prenota</button>
+    <button class="btn-prenota-nav" onclick="openBookingModal()">Prenota</button>
 </div>
 
 <!-- HERO -->
@@ -268,12 +268,11 @@
     <h2>Compila il modulo</h2>
     <p class="form-sub">Compila il modulo per confermare la tua prenotazione. Se siete un gruppo numeroso chiamate il <a href="tel:+390513428554" style="color:var(--blue);">051 342854</a>.</p>
 
-    <form class="booking-form" action="https://formsubmit.co/gabrielestaffa2003@gmail.com" method="POST" id="bookingForm">
-        <input type="hidden" name="_subject" value="Nuova Prenotazione – Bakkalà">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="text" name="_honey" style="display:none">
+    <div id="bf-success" style="display:none; text-align:center; padding:48px 0; color:#27ae60; font-size:1.1rem; font-weight:700;">
+        Prenotazione confermata. La aspettiamo da Bakkalà!
+    </div>
 
+    <form class="booking-form" id="bookingForm">
         <div class="bf-grid">
 
             <div class="bf-field">
@@ -301,8 +300,8 @@
 
             <div class="bf-field">
                 <label for="bf-data">Data</label>
-                <input type="date" id="bf-data" name="Data" required>
-                <p class="bf-error" id="bf-error-data">Il lunedì siamo chiusi. Scegli un altro giorno.</p>
+                <input type="date" id="bf-data" name="Giorno" required>
+                <p class="bf-error" id="bf-error-data" style="display:none"></p>
             </div>
 
             <div class="bf-field bf-full">
@@ -314,14 +313,10 @@
                 <p class="bf-notice" id="bf-notice-orario" style="display:none"></p>
             </div>
 
-            <div class="bf-field bf-full">
-                <label for="bf-note">Note (allergie, occasioni speciali…)</label>
-                <textarea id="bf-note" name="Note" rows="3" placeholder="Facoltativo"></textarea>
-            </div>
-
         </div>
 
-        <button type="submit" class="bf-submit">Invia Prenotazione</button>
+        <p class="bf-error" id="bf-error-submit" style="display:none; margin-bottom:12px;"></p>
+        <button type="submit" class="bf-submit" id="bf-submit-btn">Invia Prenotazione</button>
     </form>
 </section>
 
@@ -367,6 +362,52 @@
         if (day === 2 || day === 3) return [...slots(12, 30, 14, 45), ...slots(19, 30, 22, 45)];
         return [...slots(12, 0, 14, 30), ...slots(19, 30, 22, 45)];
     }
+
+    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('bf-submit-btn');
+        const errSubmit = document.getElementById('bf-error-submit');
+        btn.disabled = true;
+        btn.textContent = 'Invio in corso…';
+        errSubmit.style.display = 'none';
+
+        const fd = new FormData(this);
+        fd.append('_subject', 'Nuova Prenotazione – Bakkalà');
+
+        const payload = {
+            nome:    this.querySelector('[name="Nome"]').value,
+            email:   this.querySelector('[name="Email"]').value,
+            persone: this.querySelector('[name="Numero persone"]').value,
+            data:    this.querySelector('[name="Giorno"]').value,
+            orario:  this.querySelector('[name="Orario"]').value,
+        };
+
+        try {
+            const [emailRes] = await Promise.all([
+                fetch('https://formsubmit.co/ajax/soriafrancesco@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: fd
+                }),
+                fetch('https://script.google.com/macros/s/AKfycbxPxpy7rGczhxVTvaNZDYLfwc94q5X_AbXuZmmIVmo9YwKNgQU7hXjIrBIVbQ1Zb_MGOQ/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(payload)
+                })
+            ]);
+            if (emailRes.ok) {
+                document.getElementById('bookingForm').style.display = 'none';
+                document.getElementById('bf-success').style.display = 'block';
+            } else {
+                throw new Error();
+            }
+        } catch {
+            errSubmit.textContent = 'Errore nell\'invio. Riprova o chiama il 051 342854.';
+            errSubmit.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = 'Invia Prenotazione';
+        }
+    });
 
     dateInput.addEventListener('change', function () {
         const val = this.value;
