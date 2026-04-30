@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="bm-field">
                     <label for="bm-data">Data</label>
-                    <input type="date" id="bm-data" name="Data" required>
+                    <input type="date" id="bm-data" name="Giorno" required>
                     <p class="bm-error" id="bm-error-data" style="display:none"></p>
                 </div>
                 <div class="bm-field bm-full">
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nome:    this.querySelector('[name="Nome"]').value,
             email:   this.querySelector('[name="Email"]').value,
             persone: this.querySelector('[name="Numero persone"]').value,
-            data:    this.querySelector('[name="Data"]').value,
+            data:    this.querySelector('[name="Giorno"]').value,
             orario:  this.querySelector('[name="Orario"]').value,
         };
 
