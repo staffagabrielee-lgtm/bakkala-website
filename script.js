@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="bm-box">
         <button class="bm-close" onclick="closeBookingModal()" aria-label="Chiudi">✕</button>
         <h2 class="bm-title">Prenota un Tavolo</h2>
-        <p class="bm-sub">Compila il modulo. Per gruppi numerosi chiama il <a href="tel:+390513428554">051 342854</a>.</p>
+        <p class="bm-sub">Compila il modulo. Per gruppi numerosi chiama il <a href="tel:+39051342854">051 342854</a>.</p>
 
         <div id="bm-success" class="bm-success" style="display:none">
             <p>Prenotazione confermata. La aspettiamo da Bakkalà!</p>

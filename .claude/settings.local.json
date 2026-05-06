@@ -6,7 +6,24 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git branch *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(git config *)",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/gabrielestaffa/Desktop/bakkala_website/photo/Hero section mobile.jpg\")",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/gabrielestaffa/Desktop/bakkala_website/photo/Hero section desktop.png\")",
+      "Bash(git -C /Users/gabrielestaffa/Desktop/bakkala_website status)",
+      "Bash(sed -i '' 's|<li><a href=\"vini-pesce-bologna.html\">Carta Vini</a></li>|<li><a href=\"vini-pesce-bologna.html\">Carta Vini</a></li>\\\\n        <li><a href=\"prenota-tavolo.html\">Prenota Tavolo</a></li>|' /Users/gabrielestaffa/Desktop/bakkala_website/__TRACKED_VAR__)",
+      "Bash(sed -i '' 's|<li><a href=\"vini-pesce-bologna.html\"  onclick=\"closeMobile\\(\\)\">Carta Vini</a></li>|<li><a href=\"vini-pesce-bologna.html\"  onclick=\"closeMobile\\(\\)\">Carta Vini</a></li>\\\\n        <li><a href=\"prenota-tavolo.html\" onclick=\"closeMobile\\(\\)\">Prenota Tavolo</a></li>|' /Users/gabrielestaffa/Desktop/bakkala_website/__TRACKED_VAR__)",
+      "Bash(sed -i '' 's|<h2>Vieni a tavola da Bakkalà</h2>|<h3>Vieni a tavola da Bakkalà</h3>|g' /Users/gabrielestaffa/Desktop/bakkala_website/__TRACKED_VAR__)",
+      "Bash(sed -i '' 's|<h2>Prenota il tuo tavolo</h2>|<h3>Prenota il tuo tavolo</h3>|g' /Users/gabrielestaffa/Desktop/bakkala_website/__TRACKED_VAR__)",
+      "Bash(sed -i '' 's|<h2>Vieni a scoprire la nostra carta vini</h2>|<h3>Vieni a scoprire la nostra carta vini</h3>|g' /Users/gabrielestaffa/Desktop/bakkala_website/__TRACKED_VAR__)",
+      "Bash(sed -i '' 's|<h2>Prenota il tuo evento aziendale</h2>|<h3>Prenota il tuo evento aziendale</h3>|g' /Users/gabrielestaffa/Desktop/bakkala_website/__TRACKED_VAR__)",
+      "Bash(curl -s -X POST https://api.jsonbin.io/v3/b -H 'Content-Type: application/json' -H 'X-Master-Key: $2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK' -H 'X-Bin-Name: bakkala-blocked-dates' -d '{\"blocked\":[]}')",
+      "Bash(curl -s -X PUT https://api.jsonbin.io/v3/b/69f1daaa856a682189873789/meta -H 'Content-Type: application/json' -H 'X-Master-Key: $2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK' -d '{\"private\":false}')",
+      "Bash(curl -s -X PUT https://api.jsonbin.io/v3/b/69f1daaa856a682189873789/meta/private -H 'Content-Type: application/json' -H 'X-Master-Key: $2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK' -d '{\"private\":false}')",
+      "Bash(curl -s -X PUT https://api.jsonbin.io/v3/b/69f1daaa856a682189873789 -H 'Content-Type: application/json' -H 'X-Master-Key: $2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK' -d '{\"blocked\":[\"2026-05-01\"]}')",
+      "Bash(curl -s -X POST https://api.jsonbin.io/v3/b/69f1daaa856a682189873789/info -H 'X-Master-Key: $2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK')",
+      "Bash(curl -s -X OPTIONS https://api.jsonbin.io/v3/b/69f1daaa856a682189873789 -H 'Origin: https://staffagabrielee-lgtm.github.io' -H 'Access-Control-Request-Method: PUT' -H 'Access-Control-Request-Headers: content-type,x-master-key' -v)"
     ]
   }
 }
