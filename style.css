@@ -1060,10 +1060,10 @@ footer {
 .photo-carousel-section {
     position: relative;
     background: var(--dark-blue);
-    padding: 72px 0;
+    padding: 80px 0;
     overflow: hidden;
     clip-path: polygon(0 48px, 100% 0, 100% calc(100% - 48px), 0 100%);
-    margin: -8px 0;
+    margin: 48px 0 64px;
 }
 
 .photo-carousel-track {
@@ -1104,9 +1104,10 @@ footer {
 @media (max-width: 768px) {
     .photo-carousel-section {
         clip-path: polygon(0 24px, 100% 0, 100% calc(100% - 24px), 0 100%);
-        padding: 56px 0;
+        padding: 64px 0;
+        margin: 40px 0 56px;
     }
-    .photo-carousel-slide { flex: 0 0 280px; height: 200px; }
+    .photo-carousel-slide { flex: 0 0 260px; height: 190px; }
 }
 
 /* ─── BOOKING MODAL ───────────────────────── */
