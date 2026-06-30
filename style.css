@@ -1110,6 +1110,79 @@ footer {
     .photo-carousel-slide { flex: 0 0 260px; height: 190px; }
 }
 
+/* ─── BANCO DEL PESCE ────────────────────── */
+.banco-section {
+    background: var(--white);
+    padding: 64px 0 48px;
+    overflow: hidden;
+}
+
+.banco-header {
+    text-align: center;
+    padding: 0 24px;
+    margin-bottom: 40px;
+}
+
+.banco-eyebrow {
+    font-family: 'Rubik One', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+}
+
+.banco-sub {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.banco-carousel-wrapper {
+    overflow: hidden;
+}
+
+.banco-carousel-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: banco-marquee 26s linear infinite;
+}
+
+.banco-carousel-wrapper:hover .banco-carousel-track {
+    animation-play-state: paused;
+}
+
+.banco-slide {
+    flex: 0 0 420px;
+    height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.banco-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.banco-slide:hover img {
+    transform: scale(1.04);
+}
+
+@keyframes banco-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+    .banco-section { padding: 48px 0 36px; }
+    .banco-slide { flex: 0 0 280px; height: 200px; }
+}
+
 /* ─── BOOKING MODAL ───────────────────────── */
 .bm-overlay {
     display: none;
@@ -1213,6 +1286,44 @@ footer {
     color: #106ccd;
     margin-top: 2px;
 }
+/* ─── PRIVACY CHECKBOX ───────────────────── */
+.privacy-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    background: #f0f4fa;
+    border-radius: 10px;
+}
+
+.privacy-check input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--dark-blue);
+    cursor: pointer;
+}
+
+.privacy-check label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.privacy-check label a {
+    color: #7b1a1a;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.privacy-check label a:hover {
+    color: var(--dark-blue);
+}
+
 .bm-submit {
     margin-top: 24px;
     width: 100%;

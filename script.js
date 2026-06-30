@@ -91,6 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="bm-hint" id="bm-hint-domenica" style="display:none">La domenica siamo aperti solo a pranzo.</p>
                 </div>
             </div>
+            <div class="privacy-check">
+                <input type="checkbox" id="bm-privacy" required>
+                <label for="bm-privacy">Confermo di aver letto e di accettare l'<a href="https://ristorantebakkala.it/privacy-policy" target="_blank" rel="noopener">Informativa sulla Privacy</a>. I miei dati saranno trattati esclusivamente per gestire la prenotazione e non saranno ceduti a terzi.</label>
+            </div>
             <p class="bm-error" id="bm-error-submit" style="display:none"></p>
             <button type="submit" class="bm-submit" id="bm-submit-btn">Invia Prenotazione</button>
         </form>
