@@ -1110,6 +1110,88 @@ footer {
     .photo-carousel-slide { flex: 0 0 260px; height: 190px; }
 }
 
+/* ─── LAVORA CON NOI ─────────────────────── */
+.lavora-hero {
+    background: var(--dark-blue);
+    padding: 140px 60px 64px;
+    text-align: center;
+}
+
+.lavora-hero-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    color: var(--white);
+    line-height: 1.1;
+}
+
+.lavora-hero-title span { color: #5eb3ff; }
+
+.lavora-page-content {
+    background: var(--white);
+    padding: 80px 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.lavora-box {
+    background: var(--white);
+    padding: 48px 0 56px;
+    display: flex;
+    justify-content: center;
+}
+
+.lavora-inner {
+    background: #f0f4fa;
+    border-radius: 20px;
+    padding: 48px 56px;
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+}
+
+.lavora-title {
+    font-family: 'Rubik One', sans-serif;
+    font-size: 1.6rem;
+    color: var(--dark-blue);
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+}
+
+.lavora-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.lavora-text strong { color: var(--dark-blue); }
+
+.lavora-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--dark-blue);
+    color: #fff;
+    border-radius: 12px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.lavora-btn:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    .lavora-hero { padding: 120px 24px 52px; }
+    .lavora-inner { padding: 36px 24px; }
+    .lavora-page-content { padding: 48px 16px; }
+}
+
 /* ─── BANCO DEL PESCE ────────────────────── */
 .banco-section {
     background: var(--white);
