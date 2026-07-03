@@ -32,13 +32,20 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // ── Booking Modal ────────────────────────────────────────
-const BIN_ID  = '69f1daaa856a682189873789';
-const API_KEY = '$2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK';
+const FS_PROJECT    = 'ristorante-prenotazione';
+const FS_RESTAURANT = 'bakkala';
 let blockedDates = [];
 
-fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-    headers: { 'X-Master-Key': API_KEY }
-}).then(r => r.json()).then(d => { blockedDates = d.record.blocked || []; }).catch(() => {});
+fetch(`https://firestore.googleapis.com/v1/projects/${FS_PROJECT}/databases/(default)/documents/restaurants/${FS_RESTAURANT}/config/blockedDates`)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+        if (!data) return;
+        blockedDates = (data.fields?.blocked?.arrayValue?.values || []).map(v => ({
+            date:    v.mapValue.fields.date.stringValue,
+            service: v.mapValue.fields.service.stringValue
+        }));
+    })
+    .catch(() => {});
 
 // Inject modal HTML
 document.addEventListener('DOMContentLoaded', () => {

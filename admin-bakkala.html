@@ -11,7 +11,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Raleway', sans-serif; background: #f0f4fa; min-height: 100vh; }
 
-        /* ── LOGIN ── */
         #login-screen {
             display: flex;
             align-items: center;
@@ -27,11 +26,7 @@
             box-shadow: 0 8px 40px rgba(0,0,0,0.1);
             text-align: center;
         }
-        .login-box h1 {
-            font-size: 1.5rem;
-            color: #041634;
-            margin-bottom: 8px;
-        }
+        .login-box h1 { font-size: 1.5rem; color: #041634; margin-bottom: 8px; }
         .login-box p { font-size: 0.9rem; color: #888; margin-bottom: 28px; }
         .login-box input {
             width: 100%;
@@ -60,7 +55,6 @@
         .login-box button:hover { background: #106ccd; }
         .login-error { color: #c0392b; font-size: 0.85rem; margin-top: 10px; display: none; }
 
-        /* ── ADMIN PANEL ── */
         #admin-panel { display: none; max-width: 700px; margin: 0 auto; padding: 40px 24px 80px; }
 
         .admin-header {
@@ -96,11 +90,7 @@
             margin-bottom: 20px;
         }
 
-        .add-date-row {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
-        }
+        .add-date-row { display: flex; gap: 12px; align-items: flex-end; }
         .add-date-row input[type="date"],
         .add-date-row select {
             flex: 1;
@@ -150,34 +140,24 @@
             border-radius: 6px;
         }
         .btn-remove:hover { background: #fdecea; }
-
         .empty-msg { color: #aaa; font-size: 0.9rem; text-align: center; padding: 16px 0; }
-
-        .status-bar {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #888;
-            margin-top: 16px;
-            min-height: 20px;
-        }
+        .status-bar { text-align: center; font-size: 0.85rem; color: #888; margin-top: 16px; min-height: 20px; }
         .status-bar.ok { color: #27ae60; }
         .status-bar.err { color: #c0392b; }
     </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
     <div class="login-box">
         <h1>Bakkalà Admin</h1>
         <p>Accedi per gestire le date di chiusura</p>
-        <input type="text" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+        <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
         <button onclick="doLogin()">Accedi</button>
         <p class="login-error" id="login-error">Password errata. Riprova.</p>
     </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="admin-panel">
     <div class="admin-header">
         <h1>Gestione Date di Chiusura</h1>
@@ -206,9 +186,10 @@
 </div>
 
 <script>
-const BIN_ID  = '69f1daaa856a682189873789';
-const API_KEY = '$2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK';
-const PASSWORD = 'francesco';
+const PASSWORD      = 'francesco';
+const FS_PROJECT    = 'ristorante-prenotazione';
+const FS_RESTAURANT = 'bakkala';
+const FS_DOC_URL    = `https://firestore.googleapis.com/v1/projects/${FS_PROJECT}/databases/(default)/documents/restaurants/${FS_RESTAURANT}/config/blockedDates`;
 
 let blocked = [];
 
@@ -234,12 +215,14 @@ function doLogout() {
 async function loadDates() {
     setStatus('Caricamento…', '');
     try {
-        const res  = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-            headers: { 'X-Master-Key': API_KEY }
-        });
-        if (!res.ok) { const t = await res.text(); throw new Error(res.status + ' ' + t.slice(0,80)); }
+        const res = await fetch(FS_DOC_URL);
+        if (res.status === 404) { blocked = []; renderList(); setStatus('', ''); return; }
+        if (!res.ok) throw new Error(res.status);
         const data = await res.json();
-        blocked = data.record.blocked || [];
+        blocked = (data.fields?.blocked?.arrayValue?.values || []).map(v => ({
+            date:    v.mapValue.fields.date.stringValue,
+            service: v.mapValue.fields.service.stringValue
+        }));
         renderList();
         setStatus('', '');
     } catch(e) { setStatus('Errore caricamento: ' + e.message, 'err'); }
@@ -248,12 +231,28 @@ async function loadDates() {
 async function saveDates() {
     setStatus('Salvataggio…', '');
     try {
-        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
-            body: JSON.stringify({ blocked })
+        const body = {
+            fields: {
+                blocked: {
+                    arrayValue: {
+                        values: blocked.map(b => ({
+                            mapValue: {
+                                fields: {
+                                    date:    { stringValue: b.date },
+                                    service: { stringValue: b.service }
+                                }
+                            }
+                        }))
+                    }
+                }
+            }
+        };
+        const res = await fetch(FS_DOC_URL, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
         });
-        if (!res.ok) { const t = await res.text(); throw new Error(res.status + ' ' + t.slice(0,120)); }
+        if (!res.ok) throw new Error(res.status);
         setStatus('Salvato!', 'ok');
         setTimeout(() => setStatus('', ''), 2500);
     } catch(e) { setStatus('Errore: ' + e.message, 'err'); }

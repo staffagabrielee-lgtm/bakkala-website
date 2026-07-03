@@ -341,22 +341,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>
 (function () {
-    const BIN_ID  = '69f1daaa856a682189873789';
-    const API_KEY = '$2a$10$zBwelpwQgG216q.q8YasGeJxALIxr1LJm/E9Lk9HhkIlr3uVXtmaK';
+    const FS_PROJECT    = 'ristorante-prenotazione';
+    const FS_RESTAURANT = 'bakkala';
 
-    const dateInput = document.getElementById('bf-data');
-    const orarioSel   = document.getElementById('bf-orario');
-    const errData     = document.getElementById('bf-error-data');
-    const hintDom     = document.getElementById('bf-hint-domenica');
+    const dateInput    = document.getElementById('bf-data');
+    const orarioSel    = document.getElementById('bf-orario');
+    const errData      = document.getElementById('bf-error-data');
+    const hintDom      = document.getElementById('bf-hint-domenica');
     const noticeOrario = document.getElementById('bf-notice-orario');
 
-    let blockedDates = []; // array di {date, service}
+    let blockedDates = [];
 
-    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-        headers: { 'X-Master-Key': API_KEY }
-    }).then(r => r.json()).then(data => {
-        blockedDates = data.record.blocked || [];
-    }).catch(() => {});
+    fetch(`https://firestore.googleapis.com/v1/projects/${FS_PROJECT}/databases/(default)/documents/restaurants/${FS_RESTAURANT}/config/blockedDates`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+            if (!data) return;
+            blockedDates = (data.fields?.blocked?.arrayValue?.values || []).map(v => ({
+                date:    v.mapValue.fields.date.stringValue,
+                service: v.mapValue.fields.service.stringValue
+            }));
+        })
+        .catch(() => {});
 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
